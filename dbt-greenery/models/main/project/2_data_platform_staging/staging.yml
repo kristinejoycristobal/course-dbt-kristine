@@ -1,0 +1,177 @@
+
+version: 2
+
+  
+models:
+  - name: stg_tutorial_users
+    description: one-to-one copy of user info from tutorial.users table
+    columns:
+      - name: user_id
+        description: The primary key for this table. Refers to the id field in tutorial.users table.
+        tests:
+          - unique
+          - not_null
+      - name: user_guid
+        description: The globally unique identifier of the user.
+      - name: user_first_name
+        description: User's first name.
+      - name: user_last_name
+        description: User's last name.
+      - name: user_email
+        description: User's email.
+      - name: user_phone_number
+        description: User's phone number.
+      - name: user_address_guid
+        description: The globally unique identifier of the user's address.
+      - name: user_created_at
+        description: The date and time when the user information was created from the source. 
+      - name: updated_at
+        description: The date and time when the user information was updated from the source. 
+
+
+  - name: stg_tutorial_addresses
+    description: one-to-one copy of address info from tutorial.addresses table
+    columns:
+      - name: address_id
+        description: The primary key for this table
+        tests:
+          - unique
+          - not_null
+      - name: address_guid
+        description: The globally unique identifier of the address.
+      - name: address
+        description: the house number and street information.
+      - name: zipcode
+        description: zipcode address eg. 92056
+      - name: state   
+        description: state address eg. California
+      - name: country
+        description: country address eg. United States
+
+          
+  - name: stg_tutorial_products
+    description: one-to-one copy of product info from tutorial.products table
+    columns:
+      - name: product_id
+        description: The primary key for this table
+        tests:
+          - not_null
+          - unique
+      - name: product_guid   
+        description: The globally unique identifier of the product.
+      - name: product_name
+        description: The name of the product.
+      - name: product_price   
+        description: The price of the product.
+        tests:
+          - positive_values
+      - name: product_quantity
+        description: The quantity of the product.
+        tests:
+          - positive_values
+
+
+  - name: stg_tutorial_promos
+    description: one-to-one copy of promo details from tutorial.promos table
+    columns:
+      - name: promo_id
+        description: The primary key for this table.
+        tests:
+          - unique
+          - not_null
+      - name: promo_code
+        description: The promotional code 1 eg. (task-force, instruction set).
+      - name: promo_discount
+        description: Refers to the promotional discount applied to the product.
+        tests: 
+          - positive_values
+      - name: promo_status
+        description: Refers to the status of the promotion.
+
+
+  - name: stg_tutorial_orders
+    description: one-to-one copy of order details from tutorial.orders table
+    columns:
+      - name: order_id
+        description: The primary key for this table.
+        tests:
+          - unique
+          - not_null
+      - name: order_guid
+        description: The globally unique identifier of the order.
+      - name: order_status
+        description: The status of the order.
+      - name: order_created_at
+        description: The data and time when the user placed the order.
+      - name: promo_code
+        description: Promo key globaly unique identifier.
+      - name: order_cost
+        description: Refers to the cost of the order.
+        tests:
+          - positive_values
+      - name: shipping_cost
+        description: Refers to the shipping costs.
+        tests:
+          - positive_values
+      - name: shipping_service
+        description: The shipping service provider.
+      - name: order_total
+        description: The total cost of the order.
+        tests:
+          - positive_values
+      - name: user_guid
+        description: The globally unique identifier of the user.
+      - name: address_guid
+        description: The globally unique identifier of the user address where the order will be delivered.
+      - name: tracking_guid
+        description: The globally unique identifier of the tracking use to track the status of the order.
+      - name: estimated_delivery_at
+        description: The date and time when then order is expected to be delivered.
+      - name: delivered_at
+        description:  The date and time when then order was delivered.
+
+
+
+  - name: stg_tutorial_order_items
+    description: one-to-one copy of order item details from tutorial.order_items table
+    columns:
+      - name: order_item_id
+        description: The primary key for this table
+        tests:
+          - unique
+          - not_null
+      - name: order_product_guid
+        description: Combination of order_guid and product_guid separated by a a dash (-).
+      - name: order_guid
+        description: The globally unique identifier of the order.
+      - name: product_guid
+        description: The globally unique identifier of the product.
+      - name: order_quantity
+        description: Total number of products ordered.
+        tests:
+          - positive_values
+
+
+  - name: stg_tutorial_events
+    description: one-to-one copy of events data from tutorial.events table
+    columns:
+      - name: event_id
+        description:  "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: event_guid
+        description:  The globally unique identifier of the event.
+      - name: session_guid
+        description: The globally unique identifier of the session.
+      - name: event_type
+        description: The type of the exent performed eg. checkout, add_to_cart, account_created, package_shipped.
+      - name: event_timestamp
+        description: The date and time of when the event occurred.
+      - name: user_guid
+        description: The globally unique identifier of the user.
+      - name: product_guid
+        description: The globally unique identifier of the product.
+      - name: page_url
+        description: The url of the page the user had visited within the session.
+

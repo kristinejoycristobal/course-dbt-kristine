@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+
+  - name: tutorial # name of the source 
+    schema: public # this is the schema our raw data lives in
+    database: dbt # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    tables:
+      - name: users 
+        loaded_at_field: created_at
+        description: Contains raw user personal information from source Tutorial - dbt database. One row per unique user.
+      - name: addresses
+        description: Contains raw address information from source Tutorial - dbt database. One row per unique address.
+      - name: products
+        description: Contains raw product details from source Tutorial - dbt database. One row per unique product.
+      - name: orders
+        loaded_at_field: created_at
+        description: Contains raw order details from source Tutorial - dbt database. One row per unique order.
+      - name: order_items
+        description: Contains raw order_item details from source Tutorial - dbt database. One order_id can have one or more items.
+      - name: events
+        loaded_at_field: created_at
+        description: Contains raw events from source Tutorial - dbt database. One row per event.
+      - name: promos
+        description: Contains raw promo details from source Tutorial - dbt database. One row per unique promo.
