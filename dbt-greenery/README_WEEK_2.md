@@ -26,3 +26,5 @@ FROM
 
 ## Your stakeholders at Greenery want to understand the state of the data each day. 
 ## Explain how you would ensure these tests are passing regularly and how you would alert stakeholders about bad data getting through.
+
+![image](https://user-images.githubusercontent.com/85191840/143690524-8d8faa98-b17b-4bc3-8c75-2b088bc0da44.png)
