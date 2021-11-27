@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='table'
-    , unique_key = 'product_guid'
-  )
-}}
 
     select
         *

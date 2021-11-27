@@ -1,10 +1,10 @@
 
 version: 2
 
-  
+
 models:
-  - name: stg_tutorial_users
-    description: one-to-one copy of user info from tutorial.users table
+  - name: int_bc_users
+    description: one-to-one copy of user info from stg_tutorial_users enriched with address information from stg_tutorial_addresses
     columns:
       - name: user_id
         description: The primary key for this table. Refers to the id field in tutorial.users table.
@@ -25,10 +25,18 @@ models:
         description: User's phone number.
       - name: user_address_guid
         description: The globally unique identifier of the user's address.
+      - name: user_address
+        description: the house number and street information of the user.
+      - name: user_zipcode
+        description: zipcode address of the user eg. 92056
+      - name: user_state   
+        description: state address of the user eg. California
         tests:
-          - relationships:
-              to: ref('stg_tutorial_addresses')
-              field: address_guid
+          - not_null
+      - name: user_country
+        description: country address of the user eg. United States
+        tests:
+          - not_null
       - name: user_created_at
         description: The date and time when the user information was created from the source. 
         tests:
@@ -36,35 +44,9 @@ models:
       - name: user_updated_at
         description: The date and time when the user information was updated from the source. 
 
-
-  - name: stg_tutorial_addresses
-    description: one-to-one copy of address info from tutorial.addresses table
-    columns:
-      - name: address_id
-        description: The primary key for this table
-        tests:
-          - unique
-          - not_null
-      - name: address_guid
-        description: The globally unique identifier of the address.
-        tests:
-          - not_null
-      - name: address
-        description: the house number and street information.
-      - name: zipcode
-        description: zipcode address eg. 92056
-      - name: state   
-        description: state address eg. California
-        tests:
-          - not_null
-      - name: country
-        description: country address eg. United States
-        tests:
-          - not_null
-
           
-  - name: stg_tutorial_products
-    description: one-to-one copy of product info from tutorial.products table
+  - name: int_bc_products
+    description: one-to-one copy of product info from stg_tutorial_products 
     columns:
       - name: product_id
         description: The primary key for this table
@@ -88,32 +70,8 @@ models:
           - positive_values
           - not_null
 
-
-  - name: stg_tutorial_promos
-    description: one-to-one copy of promo details from tutorial.promos table
-    columns:
-      - name: promo_id
-        description: The primary key for this table.
-        tests:
-          - unique
-          - not_null
-      - name: promo_code
-        description: The promotional code 1 eg. (task-force, instruction set).
-        tests:
-          - not_null
-      - name: promo_discount_percentage
-        description: Refers to the promotional discount applied to the product.
-        tests: 
-          - positive_values
-          - not_null
-      - name: promo_status
-        description: Refers to the status of the promotion.
-        tests:
-          - accepted_values:
-              values: ['active', 'inactive']
-
-  - name: stg_tutorial_orders
-    description: one-to-one copy of order details from tutorial.orders table
+  - name: int_tr_orders
+    description: one-to-one copy of order details from stg_tutorial_orders enriched with promo information from stg_tutorial_promos.
     columns:
       - name: order_id
         description: The primary key for this table.
@@ -134,6 +92,8 @@ models:
         description: The data and time when the user placed the order.
       - name: promo_code
         description: Promo key globaly unique identifier.
+      - name: promo_discount_percentage
+        description: Refers to the promotional discount applied to the order. 
       - name: order_cost
         description: Refers to the cost of the order.
         tests:
@@ -152,16 +112,8 @@ models:
           - not_null
       - name: user_guid
         description: The globally unique identifier of the user.
-        tests:
-          - relationships:
-              to: ref('stg_tutorial_users')
-              field: user_guid
       - name: delivery_address_guid
         description: The globally unique identifier of the user address where the order will be delivered.
-        tests:
-          - relationships:
-              to: ref('stg_tutorial_addresses')
-              field: address_guid
       - name: tracking_guid
         description: The globally unique identifier of the tracking use to track the status of the order.
       - name: estimated_delivery_at
@@ -171,7 +123,7 @@ models:
 
 
 
-  - name: stg_tutorial_order_items
+  - name: int_tr_order_items
     description: one-to-one copy of order item details from tutorial.order_items table
     columns:
       - name: order_item_id
@@ -183,16 +135,8 @@ models:
         description: Combination of order_guid and product_guid separated by a a dash (-).
       - name: order_guid
         description: The globally unique identifier of the order.
-        tests:
-          - relationships:
-              to: ref('stg_tutorial_orders')
-              field: order_guid
       - name: product_guid
         description: The globally unique identifier of the product.
-        tests:
-          - relationships:
-              to: ref('stg_tutorial_products')
-              field: product_guid
       - name: order_quantity
         description: Total number of products ordered.
         tests:
@@ -200,7 +144,7 @@ models:
           - not_null
 
 
-  - name: stg_tutorial_events
+  - name: int_ev_events
     description: one-to-one copy of events data from tutorial.events table
     columns:
       - name: event_id
@@ -225,10 +169,6 @@ models:
           - not_null
       - name: user_guid
         description: The globally unique identifier of the user.
-        tests:
-          - relationships:
-              to: ref('stg_tutorial_users')
-              field: user_guid
       - name: product_guid
         description: The globally unique identifier of the product.
       - name: page_url

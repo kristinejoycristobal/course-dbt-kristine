@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='table'
-    , unique_key = 'session_guid'
-  )
-}}
 
 with agg_sessions as(
 select
@@ -12,7 +6,6 @@ select
     ,min(event_timestamp) as session_start
     ,max(event_timestamp) as session_end
     ,count(distinct case when event_type = 'page_view' then event_id end) AS total_page_view
-    ,count(distinct case when event_type = 'account_created' then event_id end) AS total_account_created
     ,count(distinct case when event_type = 'add_to_cart' then event_id end) AS total_add_to_cart
     ,count(distinct case when event_type = 'delete_from_cart' then event_id end) AS total_delete_from_cart
     ,count(distinct case when event_type = 'checkout' then event_id end) AS total_checkout
@@ -29,7 +22,6 @@ select
     ,session_start
     ,session_end
     ,total_page_view
-    ,total_account_created
     ,total_add_to_cart
     ,total_delete_from_cart
     ,total_checkout

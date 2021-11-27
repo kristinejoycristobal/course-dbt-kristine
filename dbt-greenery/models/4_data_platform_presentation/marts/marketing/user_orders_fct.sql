@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='table'
-    , unique_key = 'user_guid'
-  )
-}}
 
     select 
          user_guid

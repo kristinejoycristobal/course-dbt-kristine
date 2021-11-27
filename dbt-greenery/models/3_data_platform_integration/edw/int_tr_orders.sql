@@ -40,5 +40,7 @@
         promos
         on 
         orders.promo_code = promos.promo_code
+    where 
+        orders.order_total > 0  /* exclude negative amount */
     )
     select * from orders_promos_joined
