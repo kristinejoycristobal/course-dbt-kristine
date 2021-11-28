@@ -25,11 +25,14 @@ Monetary Value: How much money a user spends on purchases
 
 ## Explain the marts models you added. Why did you organize the models in the way you did?
 
-The way I organize the models and project in dbt is inspried by the  data platform architecture that I've been following and implementing in my current and past company.
+The way I organize the models and project in dbt is inspired by the data platform architecture that I've been following and implementing in my current and past company. Separating the integration concern to the end-user product concerns gives the flexibility and power to the kidn of modelling strategy you'd like to follow. ie. Kimball modelling for your presentation layer and Ensemble Logical Modelling technique for your integration layer.
 
 ![image](https://user-images.githubusercontent.com/85191840/143690593-04f7d0b5-9600-45e2-a181-bb21594296bf.png)
 
 ## Paste in an image of your DAG from the docs
+
+bc- business concepts ; tr - transactions; ev - events;
+
 
 ![image](https://user-images.githubusercontent.com/85191840/143690524-8d8faa98-b17b-4bc3-8c75-2b088bc0da44.png)
 
