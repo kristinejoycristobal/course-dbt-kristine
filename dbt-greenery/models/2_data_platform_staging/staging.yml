@@ -218,7 +218,10 @@ models:
         tests:
           - not_null
       - name: event_type
-        description: The type of the exent performed eg. checkout, add_to_cart, account_created, package_shipped.
+        description: The type of the event performed eg. checkout, add_to_cart, account_created, package_shipped.
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['page_view','add_to_cart','delete_from_cart','checkout','package_shipped']
       - name: event_timestamp
         description: The date and time of when the event occurred.
         tests:

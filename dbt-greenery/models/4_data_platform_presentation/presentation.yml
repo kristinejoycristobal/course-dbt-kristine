@@ -8,6 +8,9 @@ models:
 
   - name: dim_users
     description: one-to-one copy of user info from stg_tutorial_users enriched with address information from stg_tutorial_addresses
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("stg_tutorial_users")
     columns:
       - name: user_id
         description: The primary key for this table. Refers to the id field in tutorial.users table.
@@ -50,6 +53,9 @@ models:
           
   - name: dim_products
     description: one-to-one copy of product info from stg_tutorial_products 
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("stg_tutorial_products")
     columns:
       - name: product_id
         description: The primary key for this table
@@ -75,6 +81,9 @@ models:
 
   - name: fct_orders
     description: one-to-one copy of order details from stg_tutorial_orders enriched with promo information from stg_tutorial_promos.
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("stg_tutorial_orders")
     columns:
       - name: order_id
         description: The primary key for this table.
@@ -128,6 +137,9 @@ models:
 
   - name: fct_order_items
     description: one-to-one copy of order item details from tutorial.order_items table
+    tests:
+    - dbt_expectations.expect_table_row_count_to_equal_other_table:
+        compare_model: ref("stg_tutorial_order_items")
     columns:
       - name: order_item_id
         description: The primary key for this table
@@ -230,6 +242,48 @@ models:
           - not_null
           - positive_values
 
+  - name: fct_product_sessions
+    description: contains one row per product session
+    columns:
+      - name: session_guid
+        description:  The primary key for this table. The globally unique identifier of the session.
+        tests:
+          - unique
+          - not_null
+      - name: product_guid
+        description:  The globally unique identifier of the product.
+        tests:
+          - not_null
+      - name: product_name
+        description:  The name of the product.
+        tests:
+          - not_null
+      - name: total_page_view
+        description: The total count of user page views within the session 
+        tests:
+          - not_null
+          - positive_values
+      - name: total_add_to_cart
+        description: The total count of add_to_cart events within the session 
+        tests:
+          - not_null
+          - positive_values
+      - name: total_delete_from_cart
+        description: The total count of delete_from_cart events within the session 
+        tests:
+          - not_null
+          - positive_values
+      - name: total_checkout
+        description: The total count of checkout events within the session 
+        tests:
+          - not_null
+          - positive_values
+      - name: total_package_shipped
+        description: The total count of package_shipped events within the session 
+        tests:
+          - not_null
+          - positive_values
+
 
   # MARKETING MART #
 
@@ -275,9 +329,25 @@ models:
 # KPIs #
 
   - name: kpi_user_repeat_rate
-    description:  Contains the percentage_repeat_rate
+    description:  Contains the overall customer repeat_rate
     columns:
       - name: percentage_repeat_rate
         description: Calculated as total_repeat_customers / total_users 
+        tests:
+          - not_null
+
+  - name: kpi_conversion_rate_overall
+    description:  Contains the overall conversion rate
+    columns:
+      - name: overall_conversion_rate
+        description: Calculated as total_converted_sessions / total_sessions
+        tests:
+          - not_null
+
+  - name: kpi_conversion_rate_by_product
+    description:  Contains the conversion rate by product
+    columns:
+      - name: product_conversion_rate
+        description: Calculated as total_converted_sessions / total_sessions
         tests:
           - not_null

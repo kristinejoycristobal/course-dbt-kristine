@@ -1,0 +1,16 @@
+version: 2
+
+macros:
+  - name: get_event_types
+    description: A macro to give the list of event types
+    arguments:
+      - name: field_name
+        type: string
+        description: The event_type name being use to derive the calculation
+        
+  - name: grant
+    description: A macro to grant usage and select to a given role
+    arguments:
+      - name: role
+        type: string
+        description: The name of the role being granted

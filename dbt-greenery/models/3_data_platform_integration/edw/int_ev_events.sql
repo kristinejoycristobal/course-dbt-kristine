@@ -34,7 +34,7 @@
         products
         on 
         events.product_guid = products.product_guid
-    where 
-        events.event_timestamp is not null /* exclude null event_timestamp */
+    --where 
+        --events.event_timestamp is not null /* exclude null event_timestamp */
     )
     select * from events_products_joined
