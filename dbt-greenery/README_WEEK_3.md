@@ -71,3 +71,4 @@ FROM
     
 ## 5. dbt DAGs
 
+![image](https://user-images.githubusercontent.com/85191840/144775726-fa0a8a11-428f-4eb9-a8e9-6cbd3342df7c.png)
