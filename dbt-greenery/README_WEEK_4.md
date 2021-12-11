@@ -44,4 +44,4 @@ FROM
 
 ## 2B. Setting up for production / scheduled dbt run of your project
  Since I am the only data engineer in our team and we don't have the capacity to develop and manage the orchestration, dbt cloud would still be my choice of tool to orchestrate our dbt models to give more time and focus on high impactful projects.
- * I would start with scheduling a dbt run, dbt test and dbt docs serve on a daily basis and as the need arise I will implement a tagging to our dbt models base on the latency to kick of more frequent scheduling ( hourly, every 4 hrs, etc)
+ * I would start with scheduling a dbt run, dbt test and dbt docs serve on a daily basis and as the need arise I will implement a tagging to our dbt models base on the data latency requirements to kick off more frequent scheduling ( hourly, every 4 hrs, etc)
