@@ -1,0 +1,17 @@
+version: 2
+
+exposures:
+  
+  - name: Product Funnel Analysis
+    type: dashboard
+    maturity: high
+    url: https://docs.google.com/spreadsheets/d/1dN1-JPDDl78WclntyaQtA5RCAxyrHF0N2hTnTwkhfS0/edit#gid=76078532
+    description: >
+      Product Funnel Analysis
+    
+    depends_on:
+      - ref('rpt_product_funnel')
+      
+    owner:
+      name: Kristine Cristobal
+      email: kristine@feeld.co
