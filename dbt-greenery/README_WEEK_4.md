@@ -1,6 +1,9 @@
 ## 1. Modeling challenge
 ## How are our users moving through the product funnel?
 
+![image](https://user-images.githubusercontent.com/85191840/145689237-fe39ad6b-d54e-4f5b-8c07-90f2c84dd86e.png)
+
+
 
 ```sql
 SELECT 
@@ -12,7 +15,7 @@ FROM
 
 
 ## Which steps in the funnel have largest drop off points?
-The largest drop off points is between page views and overall sessions with 37%.
+The largest drop off points is between page views and overall sessions with -37%.
 
 ```sql
 SELECT 
@@ -20,6 +23,9 @@ SELECT
 FROM 
   dbt_kristine.rpt_product_funnel;
 ```
+
+![image](https://user-images.githubusercontent.com/85191840/145689268-cc450a6a-d803-4841-819e-499e9ae592ea.png)
+
 
 
 ## Reflection questions -- please answer 2A or 2B, or both!
